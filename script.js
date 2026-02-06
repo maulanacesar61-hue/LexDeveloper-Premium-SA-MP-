@@ -1,33 +1,28 @@
-// Modal Welcome + Pilihan Menu
-document.addEventListener('DOMContentLoaded', function() {
-  // Modal
-  const modal = document.createElement('div');
-  modal.id = 'welcomeModal';
-  modal.innerHTML = `
-    <div class="modal-content">
-      <h2>Selamat Datang di Lex Developer Premium SA-MP</h2>
-      <p>Pilih kebutuhanmu untuk mulai:</p>
-      <button id="btnLanjut">Lanjutkan</button>
+function show(id){
+  document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+function goNext(){show('menu')}
+function backMenu(){show('menu')}
+function openHosting(){show('hosting')}
+function openDev(){show('dev')}
+function openCS(){
+  show('cs');
+  chat.innerHTML = '<div class="msg bot">Cs Team LexDev disini ada yang bisa kami bantu</div>';
+}
+
+const chat = document.getElementById('chat');
+
+function sendMsg(text){
+  chat.innerHTML += `<div class="msg user">${text}</div>`;
+  if(text === 'Halo'){
+    chat.innerHTML += `<div class="msg bot">Halo, Cs Team LexDev disini ada yang bisa kami bantu</div>`;
+  } else if(text === 'saya membutuhkan bantuan anda'){
+    chat.innerHTML += `<div class="msg bot">
+      Silakan hubungi WhatsApp resmi kami<br/>
+      <a href="https://wa.me/6283177864075?text=ASSALAMUALAIKUM%20MAS%20SAYA%20MENGALAMI%20KESUSAHAN%20SAAT%20INGIN%20MEMBUTUHKAN%20LAYANAN%20LEXDEVELOPER" target="_blank">Klik Logo Rahasia</a>
     </div>`;
-  document.body.appendChild(modal);
-
-  const btnLanjut = document.getElementById('btnLanjut');
-  btnLanjut.addEventListener('click', function() {
-    modal.innerHTML = `
-      <div class="modal-content">
-        <h2>Pilih Menu</h2>
-        <button id="chooseHosting">Hosting</button>
-        <button id="chooseJasa">Jasa Developer</button>
-      </div>
-    `;
-
-    document.getElementById('chooseHosting').addEventListener('click', function() {
-      document.getElementById('hosting').scrollIntoView({behavior: 'smooth'});
-      modal.style.display = 'none';
-    });
-    document.getElementById('chooseJasa').addEventListener('click', function() {
-      document.getElementById('jasa').scrollIntoView({behavior: 'smooth'});
-      modal.style.display = 'none';
-    });
-  });
-});
+  } else {
+    chat.innerHTML += `<div class="msg bot">CS LEXDEVELOPER TEAM SEDANG SIBUK KARENA BANYAK MEMINTA BANTUAN</div>`;
+  }
+}
